@@ -1,5 +1,8 @@
 {
-    "projects": {
-        "default": "demo-project"
-    }
+  "projects": {
+    "default": "gbda-9e9dd",
+    "gbda": "gbda-9e9dd"
+  },
+  "targets": {},
+  "etags": {}
 }
