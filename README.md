@@ -92,7 +92,7 @@ npm run docker:start        # docker-compose up
 
 Once up, visit:
 
-- Admin UI (Hosting emulator): [http://localhost:5001](http://localhost:5001)
+- Admin UI (Hosting emulator): [http://localhost:5002](http://localhost:5002)
 - Emulator Dashboard (UI): [http://localhost:5000](http://localhost:5000)
 - Firestore UI: [http://localhost:5000/firestore](http://localhost:5000/firestore)
 
