@@ -5,7 +5,13 @@ import router from './routes';
 
 const app = express();
 
-app.use(cors({ origin: true }));
+app.use(
+  cors({
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 if (process.env['NODE_ENV'] === 'development') {

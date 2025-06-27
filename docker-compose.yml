@@ -1,0 +1,13 @@
+services:
+  emulator:
+    build: .
+    container_name: gbda-emulator
+    environment:
+      - GCLOUD_PROJECT=gbda-9e9dd
+      - FIRESTORE_EMULATOR_HOST=127.0.0.1:5003
+    ports:
+      - '5000:5000' # UI
+      - '5001:5001' # (you can keep this, although hosting moved to 5002)
+      - '5002:5002' # hosting
+      - '5003:5003' # firestore
+      - '5004:5004' # functions

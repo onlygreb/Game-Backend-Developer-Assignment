@@ -4,7 +4,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"{admin,functions}/src/**/*.{ts,tsx,js}\" --max-warnings 0",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "docker:buildImage": "docker-compose build",
+    "seed": "npm run seed -w functions",
+    "docker:start": "docker-compose up"
   },
   "keywords": [],
   "author": "",
