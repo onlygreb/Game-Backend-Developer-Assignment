@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import wrapAsync from '../../../utils/wrapAsync';
-import { GameSchema } from '../../../validators/gameSchema';
+import { GameSchema, NewGameSchema } from '../../../validators/gameSchema';
 import { listGames, saveGame, deleteGame } from '../../../apis/firestore/games';
+import { getFirestore } from '../../../apis/firestore/getFirestore';
 
 const router = Router();
 
@@ -15,9 +16,17 @@ router.get(
 router.post(
   '/',
   wrapAsync(async (req, res) => {
-    const parsed = GameSchema.parse(req.body);
-    await saveGame(parsed);
-    res.status(201).json(parsed);
+    const partial = NewGameSchema.parse(req.body);
+
+    const db = getFirestore();
+    const col = db.collection('games');
+    const docRef = partial.id ? col.doc(partial.id) : col.doc();
+
+    const game = { ...partial, id: docRef.id };
+    await docRef.set(game);
+
+    const validated = GameSchema.parse(game);
+    res.status(201).json(validated);
   }),
 );
 

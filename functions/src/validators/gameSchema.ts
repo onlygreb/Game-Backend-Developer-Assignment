@@ -1,14 +1,13 @@
 import { z } from 'zod';
-import { Game, Players } from '../types/game';
+import { Game } from '../types/game';
 
-export const PlayersSchema: z.ZodType<Players> = z.object({
+export const PlayersSchema: z.ZodType<Game['players']> = z.object({
   min: z.number(),
   max: z.number().optional(),
 });
 
-export const GameSchema: z.ZodType<Game> = z
+const BaseGameSchema = z
   .object({
-    id: z.string(),
     name: z.string(),
     publisher: z.string(),
     type: z.union([z.literal('BaseGame'), z.literal('Expansion')]),
@@ -19,3 +18,11 @@ export const GameSchema: z.ZodType<Game> = z
     standalone: z.boolean().optional(),
   })
   .strict();
+
+export const NewGameSchema = BaseGameSchema.extend({
+  id: z.string().optional(),
+});
+
+export const GameSchema: z.ZodSchema<Game> = NewGameSchema.extend({
+  id: z.string(),
+}).strict();

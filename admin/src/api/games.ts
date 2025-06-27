@@ -1,5 +1,5 @@
-import { Game } from '../../../functions/src/types/game';
-import { z } from 'zod';
+import { Game } from '../types/game';
+import { z, ZodError } from 'zod';
 
 const base = import.meta.env.VITE_API_URL as string;
 
@@ -12,7 +12,7 @@ const GameSchema: z.ZodSchema<Game> = z.object({
   name: z.string(),
   releaseYear: z.number().optional(),
   players: PlayersSchema.optional(),
-  publisher: z.string(),
+  publisher: z.string().optional(),
   baseGame: z.string().optional(),
   expansions: z.array(z.string()).optional(),
   standalone: z.boolean().optional(),
@@ -22,10 +22,24 @@ const GameSchema: z.ZodSchema<Game> = z.object({
 async function safeFetch<T>(url: string, schema: z.ZodSchema<T>, init?: RequestInit): Promise<T> {
   const res = await fetch(url, init);
   if (!res.ok) {
-    throw new Error(await res.text());
+    throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   }
   const json = await res.json();
-  return schema.parse(json);
+
+  try {
+    return schema.parse(json);
+  } catch (err) {
+    if (err instanceof ZodError) {
+      const msg = err.issues
+        .map(i => {
+          const path = i.path.map(String).join('.');
+          return `${path}: ${i.message}`;
+        })
+        .join('; ');
+      throw new Error(`Data validation error: ${msg}`);
+    }
+    throw err;
+  }
 }
 
 export const getGames = () => safeFetch(`${base}/games`, z.array(GameSchema));

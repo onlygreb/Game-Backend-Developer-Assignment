@@ -8,7 +8,7 @@ export type GameType = 'BaseGame' | 'Expansion';
 export interface Game {
   id: string;
   name: string;
-  publisher: string;
+  publisher?: string | undefined;
   type: GameType;
   releaseYear?: number | undefined;
   players?: Players | undefined;
