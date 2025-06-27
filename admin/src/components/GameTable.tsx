@@ -1,6 +1,6 @@
 import { Table, Space, Button, Popconfirm } from 'antd';
 import type { TableColumnsType } from 'antd';
-import { Game } from '../types/game';
+import { Game } from '../../../functions/src/types/game';
 
 export interface GameTableProps {
   data: Game[];

@@ -1,7 +1,7 @@
-import { createRouter } from '../../utils/router.js';
+import { Router } from 'express';
+import games from './games';
 
-import { gamesRouter } from './games/index.js';
+const v1 = Router();
+v1.use('/games', games);
 
-export const v1Router = createRouter();
-
-v1Router.use('/games', gamesRouter);
+export default v1;

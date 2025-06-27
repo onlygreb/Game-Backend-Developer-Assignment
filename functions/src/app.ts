@@ -1,33 +1,33 @@
-import express, { type Express, type NextFunction, type Response, type Request } from 'express';
+import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
+import router from './routes';
 
-import router from './routes/index.js';
-import { HttpError } from './classes/HttpError.js';
+const app = express();
 
-export const app: Express = express();
-
+app.use(cors({ origin: true }));
 app.use(express.json());
-if (process.env.NODE_ENV === 'development') {
+
+if (process.env['NODE_ENV'] === 'development') {
   app.use(morgan('dev'));
 }
-app.use('/', router);
-app.use((_req, res, next) => {
-  next(new HttpError('Path not found', 404));
+
+app.use(router);
+
+app.use((_req, res, _next) => {
+  res.status(404).json({ message: 'Not found' });
 });
-app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
-  console.error('Received error:', err);
-  if (err instanceof Error) {
-    const statusCode = err instanceof HttpError ? err.statusCode : 500;
-    res.status(statusCode).json({
-      error: err.message,
-    });
-  } else if (typeof err === 'string') {
-    res.status(500).json({
-      error: err,
-    });
-  } else {
-    res.status(500).json({
-      error: 'Internal server error',
-    });
-  }
-});
+
+app.use(
+  (
+    err: unknown,
+    _req: express.Request,
+    res: express.Response,
+    _next: express.NextFunction,
+  ) => {
+    console.error(err);
+    res.status(500).json({ message: 'Internal error' });
+  },
+);
+
+export default app;

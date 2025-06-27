@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import GameTable from '../components/GameTable';
 import GameForm from '../components/GameForm';
 import { getGames, addGame, updateGame, deleteGame } from '../api/games';
-import { Game } from '../types/game';
+import { Game } from '../../../functions/src/types/game';
 
 export default function Dashboard() {
   const qc = useQueryClient();

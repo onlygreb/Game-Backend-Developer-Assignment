@@ -1,4 +1,4 @@
-import { Game } from '../types/game';
+import { Game } from '../../../functions/src/types/game';
 import { z } from 'zod';
 
 const base = import.meta.env.VITE_API_URL as string;

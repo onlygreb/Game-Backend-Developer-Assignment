@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Modal, Form, Input, InputNumber, Select, Switch } from 'antd';
-import { Game } from '../types/game';
+import { Game } from '../../../functions/src/types/game';
 
 const { Option } = Select;
 
