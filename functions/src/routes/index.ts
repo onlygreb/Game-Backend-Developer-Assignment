@@ -1,4 +1,5 @@
 import { createRouter } from '../utils/router.js';
+
 import { v1Router } from './v1/index.js';
 
 const router = createRouter();

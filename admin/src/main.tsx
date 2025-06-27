@@ -10,13 +10,13 @@ if (!root) {
 const { Header, Content } = Layout;
 
 import data from '../../games.json';
-const dataSource = data.map((item) => ({ ...item, key: item.id }));
+const dataSource = data.map(item => ({ ...item, key: item.id }));
 
 const tableColumns = [
   { title: 'Name', dataIndex: 'name', key: 'name' },
   { title: 'Year', dataIndex: 'releaseYear', key: 'releaseYear' },
   { title: 'Publisher', dataIndex: 'publisher', key: 'publisher' },
-]
+];
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>

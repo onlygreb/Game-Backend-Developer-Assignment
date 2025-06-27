@@ -5,13 +5,13 @@
   "author": "Softgames",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "echo 'Just nope'",
     "dev": "vite --force",
-    "test": "vitest run --coverage",
     "build": "tsc && vite build",
-    "lint": "echo 'To be implemented'",
     "preview": "vite preview",
-    "hardUpdate": "npx -y rimraf node_modules/ package-lock.json ; npm i"
+    "test": "vitest run --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,md,json}\"",
+    "hardUpdate": "npx -y rimraf node_modules/ package-lock.json && npm i"
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",

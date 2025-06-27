@@ -12,7 +12,7 @@ export function wrapAsync<T>(
   return (req: Request, res: Response, next: NextFunction): void => {
     try {
       exec(req, res)
-        .then((response) => {
+        .then(response => {
           res.status(200).json(response);
         })
         .catch((err: unknown) => {
