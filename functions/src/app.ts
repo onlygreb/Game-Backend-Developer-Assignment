@@ -6,29 +6,18 @@ import router from './routes';
 const app = express();
 
 app.use(
-  cors({
-    origin: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true,
-  }),
+  cors({ origin: true, methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], credentials: true })
 );
+
 app.use(express.json());
 
 if (process.env['NODE_ENV'] === 'development') {
   app.use(morgan('dev'));
 }
 
-app.use(router);
+app.use('/api', router);
 
-app.use((_req, res, _next) => {
+app.use((_req, res) => {
   res.status(404).json({ message: 'Not found' });
 });
-
-app.use(
-  (err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-    console.error(err);
-    res.status(500).json({ message: 'Internal error' });
-  },
-);
-
 export default app;

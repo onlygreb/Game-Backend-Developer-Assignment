@@ -1,7 +1,7 @@
 import { Game } from '../types/game';
 import { z, ZodError } from 'zod';
 
-const base = import.meta.env.VITE_API_URL as string;
+const base = import.meta.env.VITE_API_URL as string ?? '/api/v1';
 
 const PlayersSchema = z.object({
   min: z.number(),
