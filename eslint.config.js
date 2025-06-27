@@ -5,10 +5,7 @@ const reactPlugin = require('eslint-plugin-react');
 const reactHooksPlugin = require('eslint-plugin-react-hooks');
 const prettierPlugin = require('eslint-plugin-prettier');
 
-const TS_PROJECTS = [
-  './admin/tsconfig.json',
-  './functions/tsconfig.json',
-];
+const TS_PROJECTS = ['./admin/tsconfig.json', './functions/tsconfig.json'];
 
 module.exports = [
   js.configs.recommended,
